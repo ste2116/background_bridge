@@ -1,10 +1,10 @@
 name: background_bridge
-description: Bridge package per tracking GPS background per FlutterFlow.
+description: Bridge package for background GPS tracking for FlutterFlow
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.2
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -24,3 +24,4 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
