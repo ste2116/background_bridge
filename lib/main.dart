@@ -1,24 +1,14 @@
-// ======  IMPORT  ======
+// ======  SERVIZIO BACKGROUND  ======
+library background_bridge;
+
 import 'dart:async';
 import 'dart:isolate';
-import 'package:flutter/material.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:permission_handler/permission_handler.dart';
-// ======================
 
-// =========  GESTIONE PERMESSI  ==========
-Future<void> requestAllPerms() async {
-  // Permessi base (Android 14 in debug basta “Allow all the time”)
-  await Permission.location.request();
-  await Permission.locationAlways.request();
-  await Permission.notification.request();
-}
-// ========================================
-
-// =========  SERVIZIO BACKGROUND  =========
+/// Entry-point isolato per il servizio
 @pragma('vm:entry-point')
 Future<void> onStart(ServiceInstance service) async {
   Timer? timer;
@@ -66,48 +56,14 @@ Future<void> initializeService() async {
   );
 }
 
+/// Avvia il servizio di tracking
 Future<void> startBgService() async {
   await initializeService();
   await FlutterBackgroundService().startService();
 }
 
+/// Ferma il servizio di tracking
 Future<void> stopBgService() async {
   FlutterBackgroundService().invoke('stop');
 }
 // ======================================
-
-// =========  UI MINIMA  ===============
-void main() => runApp(const DummyApp());
-
-class DummyApp extends StatelessWidget {
-  const DummyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Bike Ride – Test')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Servizio in background attivo'),
-              const SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () async {
-                  await requestAllPerms();
-                  await startBgService();
-                },
-                child: const Text('AVVIA TRACKING'),
-              ),
-              ElevatedButton(
-                onPressed: stopBgService,
-                child: const Text('FERMA TRACKING'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
