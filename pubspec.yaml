@@ -1,0 +1,26 @@
+name: background_bridge
+description: Bridge package per tracking GPS background per FlutterFlow.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_background_service: ^5.0.5
+  flutter_background_service_android: ^6.2.3
+  flutter_background_service_ios: ^5.0.0
+  geolocator: ^12.0.0
+  shared_preferences: ^2.3.2
+  permission_handler: ^12.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
