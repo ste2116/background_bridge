@@ -1,5 +1,5 @@
 // ======  SERVIZIO BACKGROUND  ======
-library background_bridge;
+library background_bridge.src.bridge;
 
 import 'dart:async';
 import 'dart:isolate';
